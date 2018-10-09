@@ -1,0 +1,19 @@
+verbose: ${CONF_VERSBOSE}
+
+cognito:
+  base_url: ${CONF_COGNITO_BASE_URL}
+  client_id: ${CONF_COGNITO_CLIENT_ID}
+  client_secret: ${CONF_COGNITO_CLIENT_ID}
+
+auth:
+  redirect_uri: ${CONF_AUTH_REDIRECT_URI}
+  tmp_session_max_age_sec: ${CONF_AUTH_TMP_SESSION_MAX_AGE_SEC}
+  session_max_age_sec: ${CONF_AUTH_SESSION_MAX_AGE_SEC}
+  scope: ${CONF_AUTH_SCOPE}
+
+session:
+  cookie_name: ${CONF_SESSION_COOKIE_NAME}
+  store:
+    region: ${CONF_SESSION_STORE_REGION}
+    table: ${CONF_SESSION_STORE_TABLE}
+

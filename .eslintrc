@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-console": 0,
+    "no-unused-vars": 1,
+    // According to js-beautify
+    "indent": [0, 2],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2017,
+  }
+}
+
