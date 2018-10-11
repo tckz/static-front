@@ -1,7 +1,7 @@
 static-front-auth
 ===
 
-static-front-auth is the Lambda@Edge function adding authentication to static web site that hosted by CloudFront.  
+static-front-auth is the Lambda@Edge function adding authentication to static web site which is hosted by CloudFront.  
 The authentication is served by AWS Cognito.
 
 # Development
