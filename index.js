@@ -15,15 +15,15 @@ console.log(
     }));
 
 const routes = [{
-    path: new RegExp('^/draft/signout'),
+    path: new RegExp('^/signout'),
     handler: front.signOutHandler,
   },
   {
-    path: new RegExp('^/draft/signin'),
+    path: new RegExp('^/signin'),
     handler: front.signInHandler,
   },
   {
-    path: new RegExp('^/draft/'),
+    path: new RegExp('^/'),
     handler: front.authHandler,
   }
 ];

@@ -3,14 +3,19 @@
 # THIS IS SAMPLE
 # DON'T APPLY TO YOUR ENV WITHOUT UNDERSTADING BEHAVIOR.
 
-func_name=static-front-auth
 func_arc=fileb://dist/static-front-auth.zip
 
-while getopts d: c
+while getopts d:f: c
 do
 	case $c in
 		d)
 			dist_id=$OPTARG
+			;;
+		f)
+			func_name=$OPTARG
+			;;
+		\?)
+			exit 1
 			;;
 	esac
 done
@@ -20,6 +25,12 @@ shift $((OPTIND - 1))
 if [[ -z $dist_id ]]
 then
 	echo "*** -d distribution_id must be specified." 1>&2
+	exit 1
+fi
+
+if [[ -z $func_name ]]
+then
+	echo "*** -f lambda_func_name must be specified." 1>&2
 	exit 1
 fi
 
@@ -65,18 +76,13 @@ fi
 
 etag=`echo $resp | jq -r .ETag`
 cur_conf=`echo $resp | jq .Distribution.DistributionConfig`
-
-new_conf=`echo $cur_conf | jq --arg arn $func_arn '.CacheBehaviors.Items |= map(
-	if .PathPattern == "/draft/*" then 
-		.LambdaFunctionAssociations.Items |= map(
+new_conf=`echo $cur_conf | jq --arg arn $func_arn '.DefaultCacheBehavior.LambdaFunctionAssociations.Items |= map(
 			if .EventType == "viewer-request" then 
 				.LambdaFunctionARN=$arn 
 			else 
 				. 
 			end)
-	else 
-		. 
-	end)'`
+'`
 
 echo "### update-distribution config: $dist_id, etag=$etag" 1>&2
 aws cloudfront update-distribution --id $dist_id --if-match $etag --distribution-config "$new_conf"
